@@ -1,0 +1,21 @@
+<%-include('../includes/head.ejs')%>
+<%-include('../includes/nav.ejs')%>
+<main class="pt-5">
+  <div class="container p-5">
+    <div class="d-flex flex-row justify-content-between">
+      <h1 class="capitalize"><%=product.title%></h1>
+      <h1 class="text-muted">$<%=product.price%></h1>
+    </div>
+    <hr />
+
+    <div class="row">
+      <div class="col-sm">
+        <img class="img-fluid" src="/<%=product.imageUrl%>" alt="<%=product.title%>" />
+      </div>
+      <div class="col-sm mt-3 mt-md-0">
+        <p><%=product.description%></p>
+        <%-include('../includes/add-to-cart.ejs', {product: product})%>
+      </div>
+    </div>
+  </div>
+<%-include('../includes/end.ejs')%>

@@ -1,0 +1,35 @@
+<%-include('../includes/head.ejs')%>
+<%-include('../includes/nav.ejs')%>
+<main class="pt-5">
+  <div class="container p-5">
+    <div class="mt-4">
+      <h2 class="text-muted">Total: $<%=total%></h2>
+      <button class="btn btn-danger order-btn mt-2">Confirm order</button>
+    </div>
+      <hr>
+      <% for (const product of products) { %>
+        <div class="d-flex flex-column align-items-center">
+          <div class="row bg-white p-3 mb-3 w-75 align-items-center">
+            <div class="col col-md-2">
+              <img class="img-fluid" src="/<%=product.product.imageUrl%>" alt="<%=product.title%>" />
+            </div>
+            <div class="col col-md-10">
+              <p class="capitalize"><strong><%=product.product.title%></strong></p>
+              <p class="text-muted"><strong>$<%=product.product.price%></strong></p>
+              <p><strong>Quantity:</strong> <%=product.quantity%></p>
+            </div>
+          </div>
+        </div>
+      <% } %>
+  </div>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    const stripe = Stripe('pk_test_51KR16yDRzYW59l4ApkxggEbkFzGyWJIjM6HtEpvmhoPxwJPT68QEu4S3FZpaZJkIUitcL7QA8GXFCokeFc4qTCcA008zRCUYTI');
+    const orderBtn = document.querySelector('.order-btn')
+      orderBtn.addEventListener('click', function() {
+        stripe.redirectToCheckout({
+          sessionId: '<%=sessionId%>',
+        })
+      })
+  </script>
+<%-include('../includes/end.ejs')%>

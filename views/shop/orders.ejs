@@ -1,0 +1,33 @@
+<%-include('../includes/head.ejs')%>
+<%-include('../includes/nav.ejs')%>
+<main class="pt-5">
+  <div class="container p-5">
+    <% if (orders.length > 0) { %>
+      <div class="orders d-flex flex-column align-items-center justify-content-center">
+        <% for (const order of orders) { %>
+          <div class="orders__order w-75">
+            <p class="text-muted"><strong>Order #<%= order._id %></strong> - <a target="_blank" class="text-muted" href="/orders/<%=order._id%>">Generate invoice</a></p>
+            <% order.products.forEach(product => { %>
+              <div class="order-details bg-white row p-4">
+                <div class="col col-md-3">
+                  <img src="/<%=product.product.imageUrl%>" alt="<%=product.product.title%>" class="img-fluid">
+                </div>
+                <div class="col col-md-9">
+                  <p class="capitalize"><strong><%=product.product.title%></strong></p>
+                  <p class="text-muted"><strong>$<%=product.product.price%></strong></p>
+                  <p><strong>Quantity: </strong><%=product.quantity%></p>
+                </div>
+              </div>
+              <hr />
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <h1 class="text-center">You haven't ordered anything yet.</h1>
+        <img class="img-fluid w-50 mt-5" src="svg/undraw_scooter_re_lrsb.svg" alt="">
+      </div>
+      <% } %>
+  </div>
+<%-include('../includes/end.ejs')%>

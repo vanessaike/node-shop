@@ -1,0 +1,37 @@
+<%-include('../includes/head.ejs')%>
+<%-include('../includes/nav.ejs')%>
+<main class="pt-5">
+  <div class="container p-5">
+    <% if (products.length > 0) { %>
+      <div class="mt-4">
+        <h2>Total: $<%=cartTotal%></h2>
+        <a class="btn product-btn mt-3" href="/checkout">Order now</a>
+      </div>
+      <hr />
+      <% for (const product of products) { %>
+        <div class="d-flex flex-column align-items-center">
+          <div class="row bg-white p-3 mb-3 w-75 align-items-center">
+            <div class="col col-md-2">
+              <img class="img-fluid" src="/<%=product.product.imageUrl%>" alt="<%=product.title%>" />
+            </div>
+            <div class="col col-md-10">
+              <p class="capitalize"><strong><%=product.product.title%></strong></p>
+              <p class="text-muted"><strong>$<%=product.product.price%></strong></p>
+              <p><strong>Quantity:</strong> <%=product.quantity%></p>
+            </div>
+            <form action="/delete-cart-item" method="POST">
+              <button class="btn btn-outline-danger col-12 mt-3">Remove from cart</button>
+              <input type="hidden" name="productId" value="<%=product.product._id%>">
+              <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+            </form>
+          </div>
+        </div>
+      <% } %>
+    <% } else { %>
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <h1 class="text-center">Your cart is currently empty.</h1>
+        <img class="img-fluid w-50 mt-5" src="svg/undraw_dreamer_re_9tua.svg" alt="">
+      </div>
+    <% } %>
+  </div>
+<%-include('../includes/end.ejs')%>

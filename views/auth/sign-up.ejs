@@ -1,0 +1,29 @@
+<%-include('../includes/head.ejs')%>
+<%-include('../includes/nav.ejs')%>
+<main class="pt-5">
+  <div class="container p-5 d-flex flex-column align-items-center">
+    <% if (errorMessage) { %>
+      <p class="bg-danger text-white border border-5 rounded p-2 mb-3"><%=errorMessage%></p>  
+    <% } %>
+    <form action="/sign-up" method="POST"·>
+      <div class="form-group">
+        <label for="name">First name</label>
+        <input class="form-control mb-3 <%= errors.find(err => err.param === 'name') ? 'invalid' : '' %>" type="text" name="name" placeholder="Enter your first name" value="<%= hasError ? oldInput.name : '' %>" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control mb-3 <%= errors.find(err => err.param === 'email') ? 'invalid' : '' %>" type="email" name="email" placeholder="Enter your email" value="<%= hasError ? oldInput.email : '' %>" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control mb-3 <%= errors.find(err => err.param === 'password') ? 'invalid' : '' %>" type="password" name="password" placeholder="Enter your password" value="<%= hasError ? oldInput.password : '' %>" />
+      </div>
+      <div class="form-group">
+        <label for="password">Confirm password</label>
+        <input class="form-control mb-3 <%= errors.find(err => err.param === 'confirmedPassword') ? 'invalid' : '' %>" type="password" name="confirmedPassword" placeholder="Enter your password again" value="<%= hasError ? oldInput.confirmedPassword : '' %>" />
+      </div>
+      <button class="btn signup-btn">Sign up</button>
+      <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+    </form>
+  </div>
+<%-include('../includes/end.ejs')%>

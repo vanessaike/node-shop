@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+body {
+  font-family: "poppins", sans-serif;
+  background-color: #f4f4f4;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  background-color: #0c564d;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+/* NAV */
+.navbar {
+  background-color: #0c564d;
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.nav-input {
+  background-color: #f4f4f4;
+}
+
+.input-group-text {
+  background-color: #f4f4f4;
+  color: black;
+}
+
+/* WELCOME SECTION */
+.section-welcome {
+  background: linear-gradient(180deg, #0c564d 0%, #5995af 100%);
+}
+
+.reset-link {
+  color: #0c564d;
+}
+
+.reset-link:hover {
+  color: #0c564db8;
+}
+
+.logo .fas {
+  font-size: 3rem;
+}
+
+.btn-see-products,
+.btn-sign-up {
+  border-radius: 100vh;
+}
+
+.btn-sign-up {
+  background-color: #0c564d;
+}
+
+.btn-see-products {
+  background-color: #1d7878;
+}
+
+.btn-sign-up:hover {
+  background-color: #0c564dcb;
+}
+
+.btn-see-products:hover {
+  background-color: #1d7878cd;
+}
+
+/* FEATURES */
+
+.features-card {
+  width: 16rem;
+  padding: 2.5rem;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.features-card-icon {
+  color: #0c564d;
+  font-size: 3rem;
+}
+
+/* PRODUCTS */
+.product {
+  font-weight: 500;
+  padding: 2rem;
+  width: 20rem;
+}
+
+.product-btn,
+.login-btn,
+.signup-btn,
+.reset-btn {
+  text-decoration: none;
+  color: #0c564d;
+  font-weight: 600;
+  border: 1px solid #0c564d;
+  font-weight: 400;
+}
+
+.product-btn:hover,
+.login-btn:hover,
+.signup-btn:hover,
+.reset-btn:hover {
+  background-color: #0c564d;
+  color: white;
+}
+
+input.invalid,
+textarea.invalid {
+  border: 1px solid red;
+}
+
+a.page-link {
+  color: #0c564d;
+}
+
+@media only screen and (max-width: 1015px) {
+  .features-cards {
+    flex-direction: column;
+  }
+}

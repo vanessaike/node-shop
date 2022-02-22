@@ -1,0 +1,78 @@
+<%-include('../includes/head.ejs') %>
+<%-include('../includes/nav.ejs')%>
+<main class="pt-5">
+  <!-- welcome section -->
+  <section class="section-welcome mb-5 min-vh-100 d-flex flex-column justify-content-center text-white">
+    <div class="container">
+      <!-- text -->
+      <div class="text-center p-2">
+        <div class="logo">
+          <i aria-hidden="true" class="fas fa-shopping-basket"></i>
+          <h1>nodeShop</h1>
+        </div>
+        <div class="description">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eleifend.</p>
+        </div>
+      </div>
+
+      <!-- buttons -->
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <% if (!isLoggedIn) { %>
+          <a class="btn btn-sign-up text-white" href="/sign-up"><i class="fas fa-user"></i> Sign up</a>
+        <% } %>
+        <a class="btn btn-see-products mt-2 text-white" href="#section-products"><i aria-hidden="true" class="fas fa-chevron-circle-down"></i> See products</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- features section -->
+  <section class="mb-5">
+    <div class="container">
+      <div class="features-cards d-flex justify-content-center align-items-center p-2">
+        <div class="features-card d-flex flex-column justify-content-center align-items-center bg-white text-center">
+          <i aria-hidden="true" class="features-card-icon mb-3 fas fa-shipping-fast"></i>
+          <p class="card__text">Nam condimentum arcu vitae purus.</p>
+        </div>
+
+        <div class="features-card d-flex flex-column justify-content-center align-items-center bg-white text-center">
+          <i aria-hidden="true" class="features-card-icon mb-3 far fa-handshake"></i>
+          <p class="card__text">Donec lobortis ultrices mollis. Nunc.</p>
+        </div>
+
+        <div class="features-card d-flex flex-column justify-content-center align-items-center bg-white text-center">
+          <i aria-hidden="true" class="features-card-icon mb-3 fas fa-user-check"></i>
+          <p class="card__text">Vestibulum convallis nibh sit amet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- products section -->
+  <section id="section-products" class="py-5 bg-white">
+    <div class="container">
+      <div class="row py-5 justify-content-center">
+        <% if (products.length > 0) { %>
+          <% for (const product of products) { %>
+            <div class="product card col-lg-4 text-center mb-3 me-md-3">
+              <div class="h-75">
+                <img class="card-img-top img-fluid" src="/<%=product.imageUrl%>" alt="<%=product.title%>" />
+              </div>
+              <div class="card-text mt-3">
+                <p class="card-title capitalize"><%=product.title%></p>
+                <p class="card-text text-muted">$<%=product.price%></p>
+              </div>
+              <div class="mt-3 d-flex flex-row justify-content-center">
+                <a class="btn product-btn me-2" href="/product/<%=product._id%>">Details</a>
+                <%-include('../includes/add-to-cart.ejs', {product: product})%>
+              </div>
+            </div>
+          <% } %>
+          <div class="mt-3 d-flex align-items-center justify-content-center">
+            <a class="text-muted" href="/products">All products</a>
+          </div>
+        <% } else { %>
+          <%-include('../error/products-not-found.ejs')%>
+        <% } %>
+    </div>
+  </section>
+  <%-include('../includes/end.ejs')%>

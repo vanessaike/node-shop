@@ -1,0 +1,32 @@
+<%-include('../includes/head.ejs')%>
+<%-include('../includes/nav.ejs')%>
+<main class="pt-5">
+  <section class="mb-5">
+    <div class="container">
+      <div class="row py-5 justify-content-center">
+        <% if (products.length > 0) { %>
+          <h3 class="text-muted mb-5">Products added by <%=userName%></h3>
+          <% for (const product of products) { %>
+            <div class="product card col-lg-4 text-center mb-3 me-md-3">
+              <div class="h-75">
+                <img class="card-img-top img-fluid" src="/<%=product.imageUrl%>" alt="<%=product.title%>" />
+              </div>
+              <div class="card-text mt-3">
+                <p class="card-title capitalize"><%=product.title%></p>
+                <p class="card-text text-muted">$<%=product.price%></p>
+              </div>
+              <div class="d-flex flex-row justify-content-center mt-3">
+                <a class="btn me-2 product-btn" href="/admin/edit-product/<%=product._id%>?edit=true">Edit</a>
+                <button class="btn btn-outline-danger btn-block" onclick="deleteProduct(this)">Delete</button>
+                <input type="hidden" name="productId" value="<%=product._id%>">
+                <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+              </div>
+            </div>
+          <% } %>
+        <% } else { %>
+          <%-include('../error/products-not-found.ejs')%>
+        <% } %>
+    </div>
+  </section>
+  <script src="/js/admin.js"></script>
+<%-include('../includes/end.ejs')%>
