@@ -210,7 +210,7 @@ exports.postResetPassword = (req, res, next) => {
           subject: "Password reset",
           html: `
             <h1>${fetchedUser.name}, you requested a password reset.</h1>
-            <p>Click <a href="http://localhost:3000/reset/${token}">this link</a> to define your new password.</p>
+            <p>Click <a href="https://nodeshop-application.herokuapp.com/reset/${token}">this link</a> to define your new password.</p>
             <p>In case you're redirected to another page, that means your token has expired. Please, repeat the process to reset your password.</p>
           `,
         });
