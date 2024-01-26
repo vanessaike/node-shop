@@ -5,7 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 
-const {errorHandling} = require("../helpers/error-handling");
+const { errorHandling } = require("../helpers/error-handling");
 const ITEMS_PER_PAGE = require("../helpers/items-per-page");
 
 exports.getIndex = (req, res, next) => {
@@ -62,7 +62,7 @@ exports.getDetails = (req, res, next) => {
 
 exports.postSearchedProduct = (req, res, next) => {
   const productTitle = req.body.productTitle.toLowerCase();
-  Product.find({title: productTitle})
+  Product.find({ title: productTitle })
     .then((products) => {
       res.render("shop/search-results", {
         pageTitle: `Results for "${productTitle}"`,
@@ -116,6 +116,7 @@ exports.getCheckout = (req, res, next) => {
       products = user.cart.items;
       total = user.cart.total;
 
+      // stripe session to confirm order
       return stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: products.map((product) => {
@@ -163,7 +164,7 @@ exports.checkoutSuccess = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-  Order.find({"user.userId": req.user._id})
+  Order.find({ "user.userId": req.user._id })
     .then((orders) => {
       res.render("shop/orders", {
         pageTitle: "Your orders",
@@ -192,11 +193,15 @@ exports.getInvoice = (req, res, next) => {
       pdfDoc.text("-------------------------------");
       let total = 0;
       order.products.forEach((product) => {
-        pdfDoc.fontSize(14).text(`${product.product.title} - $${product.product.price} (Quantity: ${product.quantity})`);
+        pdfDoc
+          .fontSize(14)
+          .text(
+            `${product.product.title} - $${product.product.price} (Quantity: ${product.quantity})`
+          );
         total += product.product.price * product.quantity;
       });
       pdfDoc.text("-------------------------------");
-      pdfDoc.fontSize(16).text(`Total: $${total}`, {underline: true});
+      pdfDoc.fontSize(16).text(`Total: $${total}`, { underline: true });
       pdfDoc.end();
     })
     .catch((error) => errorHandling(error));

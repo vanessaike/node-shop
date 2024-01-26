@@ -1,8 +1,7 @@
 const Product = require("../models/product");
-const {validationResult} = require("express-validator");
-
-const {errorHandling} = require("../helpers/error-handling");
-const {deleteFile} = require("../helpers/delete-file");
+const { validationResult } = require("express-validator");
+const { errorHandling } = require("../helpers/error-handling");
+const { deleteFile } = require("../helpers/delete-file");
 // const ITEMS_PER_PAGE  = require('../helpers/items-per-page')
 
 exports.getAddProduct = (req, res) => {
@@ -76,7 +75,7 @@ exports.postAddProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.find({userId: req.user._id})
+  Product.find({ userId: req.user._id })
     .then((products) => {
       res.render("admin/products", {
         pageTitle: "All products",
@@ -96,9 +95,9 @@ exports.deleteProduct = (req, res, next) => {
   Product.findById(productId)
     .then((product) => {
       deleteFile(product.imageUrl);
-      return Product.deleteOne({_id: productId, userId: userId});
+      return Product.deleteOne({ _id: productId, userId: userId });
     })
-    .then(() => res.status(200).json({message: "Success"}))
+    .then(() => res.status(200).json({ message: "Success" }))
     .catch((error) => errorHandling(error, next));
 };
 
